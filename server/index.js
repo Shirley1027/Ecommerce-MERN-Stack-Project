@@ -5,6 +5,7 @@ import morgan from "morgan"
 import authRoutes from './routes/auth.js';
 import categoryRoutes from './routes/category.js';
 import productRoutes from './routes/product.js';
+import cors from "cors";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONGO_URI)
 //middwares
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(cors());
 
 //router middleware
 app.use('/api',authRoutes);
