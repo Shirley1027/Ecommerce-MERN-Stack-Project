@@ -11,19 +11,19 @@ export const create = async (req, res) => {
 
         switch (true) {
             case !name.trim():
-                res.json({ err: "Name is required" });
+                return res.json({ err: "Name is required" });
             case !description.trim():
-                res.json({ err: "Decription is required" });
+                return res.json({ err: "Decription is required" });
             case !price.trim():
-                res.json({ err: "Price is required" });
+                return res.json({ err: "Price is required" });
             case !category.trim():
-                res.json({ err: "Category is required" });
+                return res.json({ err: "Category is required" });
             case !quantity.trim():
-                res.json({ err: "Quantity is required" });
+                return res.json({ err: "Quantity is required" });
             case !shipping.trim():
-                res.json({ err: "Shipping is required" });
+                return res.json({ err: "Shipping is required" });
             case photo && photo.size > 1000000:
-                res.json({ err: "Image should be less than 1mb in size" });
+                return res.json({ err: "Image should be less than 1mb in size" });
         }
 
         //create product
@@ -50,7 +50,7 @@ export const list = async (req, res) => {
             .populate("category")
             .select("-photo")
             .limit(12)
-            .sort({ createAt: -1 });
+            .sort({ createdAt: -1 });
         res.json(products);
 
     } catch (err) {

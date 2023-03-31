@@ -11,4 +11,5 @@ router.delete("/category/:categoryId", requireSignin, isAdmin, remove);
 router.get("/categories", list);
 router.get("/category/:slug", read);
 
+
 export default router;
