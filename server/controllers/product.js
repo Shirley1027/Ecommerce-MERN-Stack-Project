@@ -1,6 +1,7 @@
 import Product from "../models/product.js";
 import fs from "fs";
 import slugify from "slugify";
+import exp from "constants";
 
 export const create = async (req, res) => {
   try {
@@ -147,6 +148,31 @@ export const filteredProducts = async (req, res) => {
     if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
 
     const products = await Product.find(args);
+    res.json(products);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const productCounts = async (req, res) => {
+  try {
+    const total = await Product.find({}).estimatedDocumentCount();
+    res.json(total);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const listProducts = async (req, res) => {
+  try {
+    const perPage = 4;
+    const page = req.params.page ? req.params.page : 1;
+
+    const products = await Product.find({})
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+
     res.json(products);
   } catch (err) {
     console.log(err);
