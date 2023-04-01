@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvide } from "./context/auth";
 import { SearchProvider } from "./context/search";
+import { CartProvider } from "./context/cart";
 import "antd/dist/reset.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -12,7 +13,9 @@ root.render(
   <React.StrictMode>
     <AuthProvide>
       <SearchProvider>
-        <App />
+        <CartProvider>
+          <App />
+        </CartProvider>
       </SearchProvider>
     </AuthProvide>
   </React.StrictMode>

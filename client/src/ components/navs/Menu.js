@@ -3,10 +3,13 @@ import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
 import Search from "../forms/Search";
 import useCategory from "../../hooks/useCategory";
+import { useCart } from "../../context/cart";
+import { Badge } from "antd";
 
 export default function Menu() {
   //context
   const [auth, setAuth] = useAuth();
+  const [cart, setCart] = useCart();
 
   //hooks
   const navigate = useNavigate();
@@ -22,13 +25,13 @@ export default function Menu() {
     <>
       <ul className="nav d-flex justify-content-between shadow-sm mb-2">
         <li className="nav-item">
-          <NavLink className="nav-link active" aria-current="page" to="/">
+          <NavLink className="nav-link" aria-current="page" to="/">
             HOME
           </NavLink>
         </li>
 
         <li className="nav-item">
-          <NavLink className="nav-link active" aria-current="page" to="/shop">
+          <NavLink className="nav-link" aria-current="page" to="/shop">
             SHOP
           </NavLink>
         </li>
@@ -39,7 +42,7 @@ export default function Menu() {
               className="nav-link pointer dropdown-toggle"
               data-bs-toggle="dropdown"
             >
-              Categories
+              CATEGORIES
             </a>
 
             <ul className="dropdown-menu">
@@ -58,6 +61,18 @@ export default function Menu() {
             </ul>
           </li>
         </div>
+
+        <li className="nav-item mt-1">
+          <Badge
+            count={cart?.length >= 1 ? cart.length : 0}
+            offset={[-5, 11]}
+            showZero={true}
+          >
+            <NavLink className="nav-link" aria-current="page" to="/cart">
+              CART
+            </NavLink>
+          </Badge>
+        </li>
 
         <Search />
 
@@ -81,7 +96,7 @@ export default function Menu() {
                 className="nav-link pointer dropdown-toggle"
                 data-bs-toggle="dropdown"
               >
-                {auth?.user?.name}
+                {auth?.user?.name.toUpperCase()}
               </a>
 
               <ul className="dropdown-menu">
