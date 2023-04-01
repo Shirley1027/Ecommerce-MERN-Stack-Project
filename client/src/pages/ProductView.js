@@ -4,6 +4,7 @@ import moment from "moment";
 import Jumbotron from "../ components/cards/Jumbotron";
 import { useParams } from "react-router-dom";
 import { Badge } from "antd";
+import ProductCard from "../ components/cards/ProductCard";
 import {
   FaDollarSign,
   FaProjectDiagram,
@@ -17,6 +18,7 @@ import {
 
 export default function ProductView() {
   const [product, setProduct] = useState({});
+  const [related, setRelated] = useState([]);
   //hooks
   const params = useParams();
 
@@ -28,10 +30,20 @@ export default function ProductView() {
     try {
       const { data } = await axios.get(`/product/${params.slug}`);
       setProduct(data);
+      loadRelated(data._id, data.category._id);
     } catch (err) {
       console.log(err);
     }
   };
+
+  const loadRelated = async (productId, categoryId)=>{
+    try {
+        const { data } = await axios.get(`/related-products/${productId}/${categoryId}`);
+        setRelated(data);
+      } catch (err) {
+        console.log(err);
+      }
+  }
 
   return (
     <div className="container-fluid">
@@ -111,6 +123,9 @@ export default function ProductView() {
         </div>
         <div className="col-md-3">
           <h2>Related Productss</h2>
+          <hr/>
+          {related?.length<1&&<p>Nothing Found</p>}
+          {related.map((p)=><ProductCard p={p} key={p._id} />)}
         </div>
       </div>
     </div>
