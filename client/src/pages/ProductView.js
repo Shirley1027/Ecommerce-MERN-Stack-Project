@@ -5,6 +5,8 @@ import Jumbotron from "../ components/cards/Jumbotron";
 import { useParams } from "react-router-dom";
 import { Badge } from "antd";
 import ProductCard from "../ components/cards/ProductCard";
+import { useCart } from "../context/cart";
+import { toast } from "react-hot-toast";
 import {
   FaDollarSign,
   FaProjectDiagram,
@@ -19,6 +21,7 @@ import {
 export default function ProductView() {
   const [product, setProduct] = useState({});
   const [related, setRelated] = useState([]);
+  const [cart, setCart] = useCart();
   //hooks
   const params = useParams();
 
@@ -116,6 +119,10 @@ export default function ProductView() {
             <button
               className="btn btn-outline-primary col card-button"
               style={{ borderBottomRightRadius: "5px" }}
+              onClick={() => {
+                setCart([...cart, product]);
+                toast.success('Added to cart.')
+              }}
             >
               Add to Cart
             </button>
