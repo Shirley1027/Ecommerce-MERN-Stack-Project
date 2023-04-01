@@ -48,7 +48,7 @@ export default function Register() {
                 autoFocus
               />
               <input
-                type="text"
+                type="email"
                 className="form-control mb-4 p-2"
                 placeholder="Enter your email"
                 value={email}
@@ -56,7 +56,7 @@ export default function Register() {
                 autoFocus
               />
               <input
-                type="text"
+                type="password"
                 className="form-control mb-4 p-2"
                 placeholder="Enter your password"
                 value={password}

@@ -68,11 +68,11 @@ export default function Cart() {
           <div className="row">
             <div className="col-md-8">
               <div className="row">
-                {cart?.map((p) => (
+                {cart?.map((p, index) => (
                   <div
-                    key={p._id}
+                    key={index}
                     className="card mb-3"
-                    style={{ maxWidth: 540 }}
+                    // style={{ maxWidth: 540 }}
                   >
                     <div className="row g-0">
                       <div className="col-md-4">
@@ -124,8 +124,30 @@ export default function Cart() {
             <div className="col-md-4">
               <h4>Your Cart Summary</h4>
               Total/Address/Pay
-              <hr/>
-              <h6>Total: {cartTotal()}</h6>
+              <hr />
+              <h5>Total: {cartTotal()}</h5>
+              {auth.user?.address ? (
+                <>
+                  <div className="mb-3">
+                    <hr />
+                    <h4>Address:</h4>
+                    <h5>{auth?.user?.address}</h5>
+                  </div>
+                  <button className="btn btn-outline-warning" onClick={()=>navigate("/dashboard/user/profile")}>
+                    Update address
+                  </button>
+                </>
+              ) : (
+                <div  className="mb-3">
+                    {auth?.token?(
+                        <button className="btn btn-outline-warning mt-3" onClick={()=>navigate("/dashboard/user/profile")}>
+                        Add delivery address
+                      </button>
+                    ):(<button className="btn btn-outline-danger mt-3" onClick={()=>navigate("/login")}>
+                    Login to Checkout
+                  </button>)}
+                </div>
+              )}
             </div>
           </div>
         </div>

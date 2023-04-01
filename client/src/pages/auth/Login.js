@@ -45,7 +45,7 @@ export default function Login() {
           <div className="col-md-6 offset-md-3">
             <form onSubmit={handleSubmit}>
               <input
-                type="text"
+                type="email"
                 className="form-control mb-4 p-2"
                 placeholder="Enter your email"
                 value={email}
@@ -53,7 +53,7 @@ export default function Login() {
                 autoFocus
               />
               <input
-                type="text"
+                type="password"
                 className="form-control mb-4 p-2"
                 placeholder="Enter your password"
                 value={password}
