@@ -43,6 +43,11 @@ export default function Menu() {
             </a>
 
             <ul className="dropdown-menu">
+              <li>
+                <NavLink className="nav-link" to="/categories">
+                  All Categories
+                </NavLink>
+              </li>
               {categories.map((c) => (
                 <li>
                   <NavLink className="nav-link" to={`/category/${c.slug}`}>
