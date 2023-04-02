@@ -4,6 +4,7 @@ import slugify from "slugify";
 import exp from "constants";
 import braintree from "braintree";
 import dotenv from "dotenv";
+import Order from "../models/order.js";
 
 dotenv.config();
 
@@ -238,22 +239,35 @@ export const getToken = async (req, res) => {
 
 export const processPayment = async (req, res) => {
   try {
-    console.log(req.body);
-    let nonceFromTheClient = req.body.paymentMethodNonce;
+    // console.log(req.body);
+    const { nonce, cart } = req.body;
+
+    let total = 0;
+    cart.map((i) => {
+      total += i.price;
+    });
+    // console.log("total => ", total);
 
     let newTransaction = gateway.transaction.sale(
       {
-        amount: "10.00",
-        paymentMethodNonce: "nonce-from-the-client",
+        amount: total,
+        paymentMethodNonce: nonce,
         options: {
-          submitForSettle: true,
+          submitForSettlement: true,
         },
       },
-      function (err, result) {
+      function (error, result) {
         if (result) {
-          res.send(result);
+          // res.send(result);
+          //create order
+          const order = new Order({
+            products: cart,
+            payment: result,
+            buyer: req.user._id,
+          }).save();
+          res.json({ ok: true });
         } else {
-          res.status(500).send(err);
+          res.status(500).send(error);
         }
       }
     );

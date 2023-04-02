@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.js';
 import categoryRoutes from './routes/category.js';
 import productRoutes from './routes/product.js';
 import cors from "cors";
+import bodyParser from 'body-parser';
 
 dotenv.config();
 
@@ -20,6 +21,9 @@ mongoose.connect(process.env.MONGO_URI)
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());
+
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 //router middleware
 app.use('/api',authRoutes);

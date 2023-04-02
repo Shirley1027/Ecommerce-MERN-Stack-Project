@@ -11,6 +11,7 @@ export default function UserCartSidebar() {
 
   const [clientToken, setClientToken] = useState("");
   const [instance, setInstance] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -39,6 +40,24 @@ export default function UserCartSidebar() {
       currency: "CNY",
     });
   };
+
+  const handleBuy = async () => {
+    try {
+      setLoading(true);
+      const { nonce } = await instance.requestPaymentMethod();
+      //   console.log("nonce => ", nonce);
+      const { data } = await axios.post("/braintree/payment", {
+        nonce,
+        cart,
+      });
+      setLoading(false);
+      // console.log("handle buy response => ", data);
+    } catch (err) {
+      console.log(err);
+      //   setLoading(false);
+    }
+  };
+
   return (
     <div className="col-md-4">
       <h4>Your Cart Summary</h4>
@@ -78,7 +97,7 @@ export default function UserCartSidebar() {
           )}
         </div>
       )}
-      <div>
+      <div className="mt-3">
         {!clientToken || !cart?.length ? (
           ""
         ) : (
@@ -93,6 +112,13 @@ export default function UserCartSidebar() {
               // get instance and send to backend
               onInstance={(instance) => setInstance(instance)}
             />
+            <button
+              onClick={handleBuy}
+              className="btn btn-primary col-12 mt-2"
+              disabled={!auth?.user?.address || !instance || loading}
+            >
+              {loading ? "Processing" : "Buy"}
+            </button>
           </>
         )}
       </div>
