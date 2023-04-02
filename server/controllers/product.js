@@ -265,12 +265,33 @@ export const processPayment = async (req, res) => {
             payment: result,
             buyer: req.user._id,
           }).save();
+
+          // decrement book quantity in shop
+          decrementQuantity(cart);
           res.json({ ok: true });
         } else {
           res.status(500).send(error);
         }
       }
     );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const decrementQuantity = async (cart) => {
+  try {
+    //build mongodb query
+    const bulkOps = cart.map((item) => {
+      return {
+        updateOne: {
+          filter: { _id: item._id },
+          update: { $inc: { quantity: -0, sold: +1 } },
+        },
+      };
+    });
+    const updated = await Product.bulkWrite(bulkOps, {});
+    console.log;
   } catch (err) {
     console.log(err);
   }

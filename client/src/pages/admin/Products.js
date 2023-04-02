@@ -52,6 +52,7 @@ export default function AdminProducts() {
                           src={`${process.env.REACT_APP_API}/product/photo/${p._id}`}
                           alt={p.name}
                           className="img img-fluid rounded-start"
+                          style={{height:'300px', width:'300px',objectFit: "cover"}}
                         />
                       </div>
   

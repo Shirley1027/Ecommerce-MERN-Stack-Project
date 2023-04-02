@@ -51,6 +51,8 @@ export default function UserCartSidebar() {
         cart,
       });
       setLoading(false);
+      localStorage.removeItem("cart");
+      setCart([]);
       // console.log("handle buy response => ", data);
     } catch (err) {
       console.log(err);
