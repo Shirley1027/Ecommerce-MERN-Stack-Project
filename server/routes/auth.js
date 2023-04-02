@@ -4,7 +4,13 @@ const router = express.Router();
 import { requireSignin, isAdmin } from "../middwares/auth.js";
 
 //controllers
-import { register, login, secret, updateProfile } from "../controllers/auth.js";
+import {
+  register,
+  login,
+  secret,
+  updateProfile,
+  getOrders,
+} from "../controllers/auth.js";
 router.post("/register", register);
 router.post("/login", login);
 router.get("/auth-check", requireSignin, (req, res) => {
@@ -14,8 +20,11 @@ router.get("/auth-check", requireSignin, (req, res) => {
 router.get("/admin-check", requireSignin, isAdmin, (req, res) => {
   res.json({ ok: true });
 });
-router.put("/profile", requireSignin, updateProfile)
+router.put("/profile", requireSignin, updateProfile);
 //testing
 router.get("/secret", requireSignin, isAdmin, secret);
+
+//orders
+router.get("/orders", requireSignin, getOrders);
 
 export default router;
