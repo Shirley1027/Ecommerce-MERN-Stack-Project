@@ -11,6 +11,7 @@ import {
   updateProfile,
   getOrders,
   listOrders,
+  changeOrderStatus
 } from "../controllers/auth.js";
 router.post("/register", register);
 router.post("/login", login);
@@ -28,5 +29,6 @@ router.get("/secret", requireSignin, isAdmin, secret);
 //orders
 router.get("/orders", requireSignin, getOrders);
 router.get("/admin-orders", requireSignin, isAdmin, listOrders);
+router.put("/order-status/:orderId", requireSignin, isAdmin, changeOrderStatus);
 
 export default router;

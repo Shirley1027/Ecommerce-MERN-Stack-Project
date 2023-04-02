@@ -150,3 +150,15 @@ export const listOrders = async (req, res) => {
     console.log(err);
   }
 };
+
+export const changeOrderStatus = async (req, res) => {
+  try {
+    const {orderId} = req.params;
+    const {status} = req.body;
+
+    const order = await Order.findByIdAndUpdate(orderId, {status})
+    res.json(order);
+  } catch (err) {
+    console.log(err);
+  }
+};
