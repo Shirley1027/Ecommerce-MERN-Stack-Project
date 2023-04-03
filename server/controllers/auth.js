@@ -171,14 +171,15 @@ export const changeOrderStatus = async (req, res) => {
       to: order.buyer.email,
       from: process.env.EMAIL_FROM, // Use the email address or domain you verified above
       subject: "Order Status Updated",
-      text: 'Get your new status!',
+      text: "Get your new status!",
       html: `<h1>Hi ${order.buyer.name}, Your order's status is: <span style="color:red;">${order.status}</span></h1>
       <p>Visit <a href="${process.env.CLIENT_URL}/dashboard/user/orders">your dashboard</a> for more details</p>
     `,
     };
-    
+
     try {
       await sgMail.send(msg);
+      console.log(`${msg.text}`);
     } catch (err) {
       console.log(err);
     }
