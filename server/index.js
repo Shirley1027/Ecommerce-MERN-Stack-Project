@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import morgan from "morgan"
 import authRoutes from './routes/auth.js';
 import categoryRoutes from './routes/category.js';
-import productRoutes from './routes/product.js';
+import blogRoutes from './routes/blog.js';
 import cors from "cors";
 import bodyParser from 'body-parser';
 
@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 //router middleware
 app.use('/api',authRoutes);
 app.use('/api', categoryRoutes);
-app.use('/api', productRoutes);
+app.use('/api', blogRoutes);
 
 const port = process.env.PORT || 8000;
 
@@ -36,4 +36,3 @@ app.listen(port, ()=>{
     console.log(`Node server is running on port ${port}`);
 });
 
-//.env .gitignore

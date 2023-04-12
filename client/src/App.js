@@ -37,12 +37,12 @@ export default function App() {
       <Toaster position="top-right"/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
+        <Route path="/communities" element={<Shop />} />
         <Route path="/categories" element={<CategoriesList />} />
         <Route path="/category/:slug" element={<CategoryView />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/product/:slug" element={<ProductView />} />
+        <Route path="/blog/:slug" element={<ProductView />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<PrivateRoute />}>
@@ -53,11 +53,11 @@ export default function App() {
         <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
           <Route path="admin/category" element={<AdminCategory />} />
-          <Route path="admin/product" element={<AdminProduct />} />
-          <Route path="admin/products" element={<AdminProducts />} />
+          <Route path="admin/createblog" element={<AdminProduct />} />
+          <Route path="admin/blogs" element={<AdminProducts />} />
           <Route path="admin/orders" element={<AdminOrders />} />
           <Route
-            path="admin/product/update/:slug"
+            path="admin/blog/update/:slug"
             element={<AdminProductUpdate />}
           />
         </Route>

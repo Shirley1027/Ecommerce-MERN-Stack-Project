@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { ObjectId } = mongoose.Schema;
 const Schema = mongoose.Schema;
 
-const productSchema = new Schema({
+const blogSchema = new Schema({
     name: {
         type: String,
         trim: true,
@@ -14,39 +14,51 @@ const productSchema = new Schema({
         type: String,
         lowercase: true,
     },
-    description: {
+    content: {
         type: String,
         required: true,
         maxlength: 2000,
-    },
-    price: {
-        type: Number,
-        trim: true,
-        requied: true,
     },
     category: {
         type: ObjectId,
         ref: "Category",
         required: true,
     },
-    quantity: {
-        type: Number,
+    country: {
+        type: String,
+        trim: true,
+        required: true,
     },
-    sold: {
-        type: Number,
-        default: 0,
+    city: {
+        type: String,
+        trim: true,
+        required: true,
     },
     photo: {
         data: Buffer,
         contentType: String,
     },
-    shipping: {
-        requied: false,
-        type: Boolean,
+    user: {
+        type: ObjectId,
+        ref: "User",
+        required: true,
+    }, 
+    collect: {
+        type: Number,
+        default: 0,
+    }, 
+    like: {
+        type: Number,
+        default: 0
     },
+    price : {
+        type: Number,
+        trim: true,
+        required: true,
+    }
 },
     { timestamps: true },
 );
 
 
-export default mongoose.model("Product", productSchema);
+export default mongoose.model("Blog", blogSchema);

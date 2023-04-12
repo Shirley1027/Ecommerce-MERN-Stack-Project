@@ -16,11 +16,11 @@ export default function AdminProductUpdate() {
   const [categories, setCategories] = useState([]);
   const [photo, setPhoto] = useState("");
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
-  const [shipping, setShipping] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [price, setPrice] = useState("");
   const [id, setId] = useState("");
   // hook
   const navigate = useNavigate();
@@ -45,13 +45,13 @@ export default function AdminProductUpdate() {
 
   const loadProduct = async () => {
     try {
-      const { data } = await axios.get(`/product/${params.slug}`);
+      const { data } = await axios.get(`/blog/${params.slug}`);
       setName(data.name);
-      setDescription(data.description);
+      setContent(data.content);
       setPrice(data.price);
       setCategory(data.category._id);
-      setShipping(data.shipping);
-      setQuantity(data.quantity);
+      setCountry(data.country);
+      setCity(data.city);
       setId(data._id);
     } catch (err) {
       console.log(err);
@@ -63,35 +63,37 @@ export default function AdminProductUpdate() {
     try {
       const productData = new FormData();
       photo && productData.append("photo", photo);
+      productData.append("photo", photo);
       productData.append("name", name);
-      productData.append("description", description);
-      productData.append("price", price);
+      productData.append("content", content);
       productData.append("category", category);
-      productData.append("shipping", shipping);
-      productData.append("quantity", quantity);
+      productData.append("country", country);
+      productData.append("city", city);
+      productData.append("price", price);
+      productData.append("user", price);
 
-      const { data } = await axios.put(`/product/${id}`, productData);
+      const { data } = await axios.put(`/blog/${id}`, productData);
       if (data?.error) {
         toast.error(data.error);
       } else {
         toast.success(`"${data.name}" is updated`);
-        navigate("/dashboard/admin/products");
+        navigate("/dashboard/admin/blogs");
       }
     } catch (err) {
       console.log(err);
-      toast.error("Product create failed. Try again.");
+      toast.error("Blog create failed. Try again.");
     }
   };
 
   const handleDelete = async (req, res) => {
     try {
       let answer = window.confirm(
-        "Are you sure you want to delete this product?"
+        "Are you sure you want to delete this blog?"
       );
       if (!answer) return;
-      const { data } = await axios.delete(`/product/${id}`);
+      const { data } = await axios.delete(`/blog/${id}`);
       toast.success(`"${data.name}" is deleted`);
-      navigate("/dashboard/admin/products");
+      navigate("/dashboard/admin/blogs");
     } catch (err) {
       console.log(err);
       toast.error("Delete failed. Try again.");
@@ -111,7 +113,7 @@ export default function AdminProductUpdate() {
             <AdminMenu />
           </div>
           <div className="col-md-9">
-            <div className="p-3 mt-2 mb-2 h4 bg-light">Update Product</div>
+            <div className="p-3 mt-2 mb-2 h4 bg-light">Update Blog</div>
 
             {photo ? (
               <div className="text-center">
@@ -127,7 +129,7 @@ export default function AdminProductUpdate() {
                 <img
                   src={`${
                     process.env.REACT_APP_API
-                  }/product/photo/${id}?${new Date().getTime()}`}
+                  }/blog/photo/${id}?${new Date().getTime()}`}
                   alt="product photo"
                   className="img img-responsive"
                   height="200px"
@@ -150,7 +152,7 @@ export default function AdminProductUpdate() {
 
             <input
               type="text"
-              className="form-control p-2 mb-3"
+              className="form-control mb-3 p-2"
               placeholder="Write a name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -158,15 +160,31 @@ export default function AdminProductUpdate() {
 
             <textarea
               type="text"
-              className="form-control p-2 mb-3"
-              placeholder="Write a description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              className="form-control mb-3 p-2"
+              placeholder="Write a content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
+
+            <input
+              type="text"
+              className="form-control mb-3 p-2"
+              placeholder="Write a country"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+            />
+
+            <input
+              type="text"
+              className="form-control mb-3 p-2"
+              placeholder="Write a city"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
             />
 
             <input
               type="number"
-              className="form-control p-2 mb-3"
+              className="form-control mb-3 p-2"
               placeholder="Enter price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
@@ -179,7 +197,6 @@ export default function AdminProductUpdate() {
               className="form-select mb-3"
               placeholder="Choose category"
               onChange={(value) => setCategory(value)}
-              value={category}
             >
               {categories?.map((c) => (
                 <Option key={c._id} value={c._id}>
@@ -187,27 +204,6 @@ export default function AdminProductUpdate() {
                 </Option>
               ))}
             </Select>
-
-            <Select
-              bordered={false}
-              size="large"
-              className="form-select mb-3"
-              placeholder="Choose shipping"
-              onChange={(value) => setShipping(value)}
-              value={shipping==="1" || shipping ===true ? "Yes" : "No"}
-            >
-              <Option value="0">No</Option>
-              <Option value="1">Yes</Option>
-            </Select>
-
-            <input
-              type="number"
-              min="1"
-              className="form-control p-2 mb-3"
-              placeholder="Enter quantity"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-            />
 
             <div className="d-flex justify-content-between">
               <button onClick={handleSubmit} className="btn btn-primary mb-5">

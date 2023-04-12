@@ -23,7 +23,7 @@ export default function Search() {
 
   const getTotal = async () => {
     try {
-      const { data } = await axios.get("/products-count");
+      const { data } = await axios.get("/blogs-count");
       setTotal(data);
     } catch (err) {
       console.log(err);
@@ -32,7 +32,7 @@ export default function Search() {
 
   const loadProducts = async () => {
     try {
-      const { data } = await axios.get(`/list-products/${page}`);
+      const { data } = await axios.get(`/list-blogs/${page}`);
       setProducts(data);
     } catch (err) {
       console.log(err);
@@ -42,7 +42,7 @@ export default function Search() {
   const loadMore = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`/list-products/${page}`);
+      const { data } = await axios.get(`/list-blogs/${page}`);
       setProducts([...products, ...data]);
       setLoading(false);
     } catch (err) {
@@ -60,8 +60,8 @@ export default function Search() {
         title="Search Results"
         subTitle={
           values?.results?.length < 1
-            ? "No Products Found"
-            : `Found ${values?.results?.length} Products`
+            ? "No Blogs Found"
+            : `Found ${values?.results?.length} Blogs`
         }
       />
 
