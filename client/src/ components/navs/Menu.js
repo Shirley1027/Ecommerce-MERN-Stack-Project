@@ -31,8 +31,8 @@ export default function Menu() {
         </li>
 
         <li className="nav-item">
-          <NavLink className="nav-link" aria-current="page" to="/shop">
-            SHOP
+          <NavLink className="nav-link" aria-current="page" to="/communities">
+            COMMUNITIES
           </NavLink>
         </li>
 
@@ -42,22 +42,20 @@ export default function Menu() {
               className="nav-link pointer dropdown-toggle"
               data-bs-toggle="dropdown"
             >
-              CATEGORIES
+              BOOKING
             </a>
 
             <ul className="dropdown-menu">
               <li>
-                <NavLink className="nav-link" to="/categories">
-                  All Categories
+                <NavLink className="nav-link" to="/flights">
+                  FLIGHTS
                 </NavLink>
               </li>
-              {categories.map((c) => (
-                <li key={c._id}>
-                  <NavLink className="nav-link" to={`/category/${c.slug}`}>
-                    {c.name}
-                  </NavLink>
-                </li>
-              ))}
+              <li>
+                <NavLink className="nav-link" to="/hotel">
+                  HOTEL
+                </NavLink>
+              </li>
             </ul>
           </li>
         </div>

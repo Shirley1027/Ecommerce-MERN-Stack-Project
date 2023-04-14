@@ -10,19 +10,15 @@ export default function ProductCard({ p }) {
   const navigate = useNavigate();
   return (
     <div className="card mb-3 hoverable">
-      <Badge.Ribbon text={`${p?.sold} sold`} color="pink">
+      <Badge.Ribbon text={`${p?.collect} collect`} color="pink">
         <Badge.Ribbon
-          text={`${
-            p?.quantity >= 1
-              ? `${p?.quantity - p?.sold} in stock`
-              : "Out of stock"
-          }`}
+          text={`${p?.like} likes`}
           placement="start"
           color="green"
         >
           <img
             className="card-img-top"
-            src={`${process.env.REACT_APP_API}/product/photo/${p._id}`}
+            src={`${process.env.REACT_APP_API}/blog/photo/${p._id}`}
             alt={p.name}
             style={{ height: "400px", objectFit: "cover" }}
           />
@@ -33,22 +29,22 @@ export default function ProductCard({ p }) {
         <h5>{p?.name}</h5>
 
         <h4 className="fw-bold">
-          {p?.price?.toLocaleString("CNY", {
+          {p?.price?.toLocaleString("SFD", {
             style: "currency",
-            currency: "CNY",
+            currency: "SGD",
           })}
         </h4>
 
-        <p className="card-text">{p?.description?.substring(0, 60)}...</p>
+        <p className="card-text">{p?.content?.substring(0, 60)}...</p>
       </div>
 
       <div className="d-flex justify-content-between">
         <button
           className="btn btn-primary col card-button"
           style={{ borderBottomLeftRadius: "5px" }}
-          onClick={() => navigate(`/product/${p.slug}`)}
+          onClick={() => navigate(`/blog/${p.slug}`)}
         >
-          View Product
+          View Blog
         </button>
 
         <button
@@ -57,10 +53,10 @@ export default function ProductCard({ p }) {
           onClick={() => {
             setCart([...cart, p]);
             localStorage.setItem('cart', JSON.stringify([...cart, p]))
-            toast.success('Added to cart.')
+            toast.success('Added to Collection')
           }}
         >
-          Add to Cart
+          Collect
         </button>
       </div>
     </div>

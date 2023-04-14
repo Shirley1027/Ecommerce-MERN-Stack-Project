@@ -21,11 +21,11 @@ export default function Shop() {
 
   const loadFilteredProducts = async () => {
     try {
-      const { data } = await axios.post("/filtered-products", {
+      const { data } = await axios.post("/filtered-blogs", {
         checked,
         radio,
       });
-      console.log("filtered products => ", data);
+      console.log("filtered blogs => ", data);
       setProducts(data);
     } catch (err) {
       console.log(err);
@@ -34,7 +34,7 @@ export default function Shop() {
 
   const loadProducts = async () => {
     try {
-      const { data } = await axios.get("/products");
+      const { data } = await axios.get("/blogs");
       setProducts(data);
     } catch (err) {
       console.log(err);
@@ -67,7 +67,7 @@ export default function Shop() {
 
   return (
     <>
-      <Jumbotron title="Hello World" subTitle="Welcome to React E-commerce" />
+      <Jumbotron  subTitle="Share Your Journey With Us!" />
 
       {/* <pre>{JSON.stringify({ checked, radio }, null, 4)}</pre> */}
 
@@ -113,7 +113,7 @@ export default function Shop() {
 
           <div className="col-md-9">
             <h2 className="p-3 mt-2 mb-2 h4 bg-light text-center">
-              {products?.length} Products
+              {products?.length} Blogs
             </h2>
 
             <div

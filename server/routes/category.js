@@ -4,12 +4,12 @@ const router = express.Router();
 
 import { requireSignin, isAdmin } from "../middwares/auth.js";
 
-import { create, update, remove, list, read, productByCategory } from "../controllers/category.js";
+import { create, update, remove, list, read, blogByCategory } from "../controllers/category.js";
 router.post("/category", requireSignin, isAdmin, create);
 router.put("/category/:categoryId", requireSignin, isAdmin, update);
 router.delete("/category/:categoryId", requireSignin, isAdmin, remove);
 router.get("/categories", list);
 router.get("/category/:slug", read);
-router.get("/product-by-category/:slug", productByCategory);
+router.get("/blogs-by-category/:slug", blogByCategory);
 
 export default router;

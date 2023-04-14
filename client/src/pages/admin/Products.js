@@ -18,7 +18,7 @@ export default function AdminProducts() {
   
     const loadProducts = async () => {
       try {
-        const { data } = await axios.get("/products");
+        const { data } = await axios.get("/blogs");
         setProducts(data);
       } catch (err) {
         console.log(err);
@@ -38,18 +38,18 @@ export default function AdminProducts() {
               <AdminMenu />
             </div>
             <div className="col-md-9">
-              <div className="p-3 mt-2 mb-2 h4 bg-light">Products</div>
+              <div className="p-3 mt-2 mb-2 h4 bg-light">Blogs</div>
   
               {products?.map((p) => (
                 <Link
                   key={p._id}
-                  to={`/dashboard/admin/product/update/${p.slug}`}
+                  to={`/dashboard/admin/blog/update/${p.slug}`}
                 >
                   <div className="card mb-3">
                     <div className="row g-0">
                       <div className="col-md-4">
                         <img
-                          src={`${process.env.REACT_APP_API}/product/photo/${p._id}`}
+                          src={`${process.env.REACT_APP_API}/blog/photo/${p._id}`}
                           alt={p.name}
                           className="img img-fluid rounded-start"
                           style={{height:'300px', width:'300px',objectFit: "cover"}}
@@ -59,7 +59,7 @@ export default function AdminProducts() {
                       <div className="col-md-8">
                         <div className="card-body">
                           <h5 className="card-title">{p.name}</h5>
-                          <p className="card-text">{p?.description?.substring(0,160)}...</p>
+                          <p className="card-text">{p?.content?.substring(0,160)}...</p>
                           <p className="card-text">
                             <small className="text-muted">
                               {moment(p.createdAt).format(

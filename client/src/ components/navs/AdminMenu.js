@@ -10,21 +10,21 @@ export default function AdminMenu(){
                   className="list-group-item" 
                   to="/dashboard/admin/category"
                 >
-                  Create category
+                  Create Blog Category
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   className="list-group-item" 
-                  to="/dashboard/admin/product"
+                  to="/dashboard/admin/createblog"
                 >
-                  Create product
+                  Create Blogs
                 </NavLink>
                 <NavLink
                   className="list-group-item" 
-                  to="/dashboard/admin/products"
+                  to="/dashboard/admin/blogs"
                 >
-                  Products
+                  Manage Blogs
                 </NavLink>
                 <NavLink
                   className="list-group-item" 

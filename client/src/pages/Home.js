@@ -21,7 +21,7 @@ export default function Home() {
 
   const getTotal = async () => {
     try {
-      const { data } = await axios.get("/products-count");
+      const { data } = await axios.get("/blogs-count");
       setTotal(data);
     } catch (err) {
       console.log(err);
@@ -30,7 +30,7 @@ export default function Home() {
 
   const loadProducts = async () => {
     try {
-      const { data } = await axios.get(`/list-products/${page}`);
+      const { data } = await axios.get(`/list-blogs/${page}`);
       setProducts(data);
     } catch (err) {
       console.log(err);
@@ -40,7 +40,7 @@ export default function Home() {
   const loadMore = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`/list-products/${page}`);
+      const { data } = await axios.get(`/list-blogs/${page}`);
       setProducts([...products, ...data]);
       setLoading(false);
     } catch (err) {
@@ -54,12 +54,12 @@ export default function Home() {
 
   return (
     <div>
-      <Jumbotron title="Hello World" sutTitle="Welcome to React E-commerce" />
+      <Jumbotron />
 
       <div className="row">
         <div className="col-md-6">
           <h2 className="p-3 mt-2 mb-2 h4 bg-light text-center">
-            New Arrivals
+            New Blogs
           </h2>
           <div className="row">
             {products?.map((p) => (
@@ -72,7 +72,7 @@ export default function Home() {
 
         <div className="col-md-6">
           <h2 className="p-3 mt-2 mb-2 h4 bg-light text-center">
-            Best Sellers
+            Most Popular
           </h2>
           <div className="row">
             {sortedBySold?.map((p) => (

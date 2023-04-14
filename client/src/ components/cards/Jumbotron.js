@@ -1,6 +1,6 @@
 export default function Jumbotron({
-  title,
-  subTitle = "Welcome to React E-commerce",
+  title = "Explore New World",
+  subTitle = "Plan Your Journey Here",
 }) {
   return (
     <div className="container-fluid jumbotron" style={{marginTop:'-8px'}}>
