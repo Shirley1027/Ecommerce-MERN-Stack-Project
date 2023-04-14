@@ -21,6 +21,8 @@ import Search from "./pages/Search";
 import ProductView from "./pages/ProductView";
 import Cart from "./pages/Cart";
 import AdminOrders from "./pages/admin/Orders";
+import FlightSearch from "./pages/FlightSearch";
+import HotelSearch from "./pages/HotelSearch";
 
 const PageNotFound = () => {
   return (
@@ -40,6 +42,8 @@ export default function App() {
         <Route path="/communities" element={<Shop />} />
         <Route path="/categories" element={<CategoriesList />} />
         <Route path="/category/:slug" element={<CategoryView />} />
+        <Route path="/flights" element={<FlightSearch />}/>
+        <Route path="/hotel" element={<HotelSearch />}/>
         <Route path="/cart" element={<Cart />} />
         <Route path="/search" element={<Search />} />
         <Route path="/blog/:slug" element={<ProductView />} />

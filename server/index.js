@@ -5,6 +5,9 @@ import morgan from "morgan"
 import authRoutes from './routes/auth.js';
 import categoryRoutes from './routes/category.js';
 import blogRoutes from './routes/blog.js';
+import flightSearchRouter from'./routes/flightSearch.js'
+import hotelSearchRouter from'./routes/hotelSearch.js'
+import hotelLocationSearchRouter from'./routes/hotelLocationSearch.js'
 import cors from "cors";
 import bodyParser from 'body-parser';
 
@@ -29,10 +32,14 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/api',authRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', blogRoutes);
+app.use('/flightSearch',flightSearchRouter)
+app.use('/hotelSearch',hotelSearchRouter)
+app.use('/hotelLocationSearch',hotelLocationSearchRouter)
 
 const port = process.env.PORT || 8000;
 
 app.listen(port, ()=>{
     console.log(`Node server is running on port ${port}`);
 });
+
 
